@@ -1,14 +1,11 @@
-import dotenv from "dotenv";
 import { Pool, PoolClient } from "pg";
 
-dotenv.config();
-
 const pool = new Pool({
-    user: 'postgres',
-    host: 'db',
-    database: 'prueba_syc',
-    password: '0226',
-    port: 5432,
+    user: process.env.PGUSER,
+    host: process.env.PGHOST,
+    database: process.env.PGDATABASE,
+    password: process.env.PGPASSWORD,
+    port: parseInt(process.env.PGPORT!), // Convertir a número
 });
 
 setTimeout(() => {
