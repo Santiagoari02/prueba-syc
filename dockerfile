@@ -22,10 +22,6 @@ RUN groupadd -r appuser && useradd -r -g appuser appuser
 RUN chown -R appuser:appuser /usr/src/app
 USER appuser
 
-EXPOSE $PORT
-ENV PORT=${PORT:-10000}
-
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:$PORT/health || exit 1
+EXPOSE 3000
 
 CMD ["node", "dist/index.js"]
