@@ -1,0 +1,34 @@
+services:
+  app:
+    build: .
+    container_name: prueba-syc-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DB_USER=postgres
+      - DB_HOST=db
+      - DB_DATABASE=prueba_syc
+      - DB_PASSWORD=0226
+      - DB_PORT=5432
+      - JWT_SECRET=ClaveSecreta
+      - NODE_ENV=development
+    restart: unless-stopped
+
+  db:
+    image: postgres:13
+    container_name: prueba-syc-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 0226
+      POSTGRES_DB: prueba_syc
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
